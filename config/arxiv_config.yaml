@@ -17,7 +17,7 @@ keywords: [Humanoid]
 
 # 首次爬取的起始日期（首次部署时使用）
 # 格式: YYYY-MM-DD
-start_date: "2026-01-01"
+start_date: "2025-01-01"
 
 # 输出配置
 output:

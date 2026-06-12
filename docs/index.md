@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: 开始浏览
-      link: /2026-06/
+      link: /2025-01/
     - theme: alt
       text: GitHub
       link: https://github.com/KK-Zhou/my-Arxiv-Daily
