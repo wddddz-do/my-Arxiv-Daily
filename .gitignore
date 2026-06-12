@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Output files
+# 忽略旧的 output 目录
+output/
+
+# Node.js
+node_modules/
+yarn.lock
+
+# VitePress
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+
+# 搜索索引（构建时自动生成）
+docs/public/search-index.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+*logs_*
