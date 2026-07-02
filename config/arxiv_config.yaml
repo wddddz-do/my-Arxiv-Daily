@@ -1,53 +1,100 @@
 categories:
   - cs.RO
   - cs.SY
-  - cs.CV
   - cs.LG
   - eess.SY
 
 keywords:
-  # 机器狗 / 四足机器人 / 腿足机器人
-  - quadruped
-  - quadrupedal
-  - legged robot
+  # 机器狗 / 四足机器人
+  - quadruped robot
+  - quadrupedal robot
+  - quadrupedal locomotion
   - legged locomotion
   - robot dog
   - Unitree
   - ANYmal
-  - locomotion
-  - gait
-  - parkour
-  - sim-to-real
-  - reinforcement learning
 
-  # 机械臂 / 机器人操作
-  - robotic arm
-  - manipulator
-  - robotic manipulation
-  - dexterous manipulation
-  - grasping
-  - mobile manipulator
-  - whole-body manipulation
-  - visual servoing
-  - force control
-  - impedance control
-
-  # 无人机 / 空中机器人
-  - UAV
-  - drone
-  - quadrotor
-  - aerial robot
-  - aerial robotics
+  # 空中机械臂
   - aerial manipulation
   - aerial manipulator
-  - flight control
-  - trajectory planning
-  - motion planning
-  - obstacle avoidance
-  - visual navigation
-  - SLAM
-  - VIO
-  - autonomous navigation
+  - flying manipulator
+  - UAV manipulator
+  - quadrotor manipulator
+  - drone manipulator
+  - aerial grasping
+  - aerial physical interaction
+
+  # 无人机规划与控制
+  - quadrotor trajectory planning
+  - UAV trajectory planning
+  - drone trajectory planning
+  - quadrotor control
+  - UAV flight control
+  - drone flight control
+  - aerial robot navigation
+  - UAV obstacle avoidance
+  - autonomous quadrotor navigation
+
+  # 无人机学习 / UAV Learning
+  - quadrotor reinforcement learning
+  - UAV reinforcement learning
+  - drone reinforcement learning
+  - learning-based quadrotor control
+  - learning-based UAV navigation
+  - sim-to-real quadrotor
+  - sim-to-real UAV
+  - quadrotor imitation learning
+  - drone imitation learning
+  - aerial robot learning
+  - drone vision-language navigation
+  - UAV vision-language navigation
+  - aerial vision-language navigation
+
+topic_groups:
+  "机器狗 / 四足机器人":
+    - quadruped robot
+    - quadrupedal robot
+    - quadrupedal locomotion
+    - legged locomotion
+    - robot dog
+    - Unitree
+    - ANYmal
+
+  "空中机械臂":
+    - aerial manipulation
+    - aerial manipulator
+    - flying manipulator
+    - UAV manipulator
+    - quadrotor manipulator
+    - drone manipulator
+    - aerial grasping
+    - aerial physical interaction
+
+  "无人机规划与控制":
+    - quadrotor trajectory planning
+    - UAV trajectory planning
+    - drone trajectory planning
+    - quadrotor control
+    - UAV flight control
+    - drone flight control
+    - aerial robot navigation
+    - UAV obstacle avoidance
+    - autonomous quadrotor navigation
+
+  "无人机学习 / UAV Learning":
+    - quadrotor reinforcement learning
+    - UAV reinforcement learning
+    - drone reinforcement learning
+    - learning-based quadrotor control
+    - learning-based UAV navigation
+    - sim-to-real quadrotor
+    - sim-to-real UAV
+    - quadrotor imitation learning
+    - drone imitation learning
+    - aerial robot learning
+    - drone vision-language navigation
+    - UAV vision-language navigation
+    - aerial vision-language navigation
 
 start_date: "2025-01-01"
 
@@ -59,6 +106,6 @@ output:
 
 markdown:
   title: "Robotics ArXiv Daily Papers"
-  description: "Daily arXiv papers on legged robots, manipulators, and aerial robots"
+  description: "Daily arXiv papers on quadruped robots, aerial manipulators, UAV control, and UAV learning"
   category_heading_level: 2
   paper_heading_level: 3
