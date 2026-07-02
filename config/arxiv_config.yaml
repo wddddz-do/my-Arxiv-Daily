@@ -96,7 +96,7 @@ topic_groups:
     - UAV vision-language navigation
     - aerial vision-language navigation
 
-start_date: "2025-07-01"
+start_date: "2026-01-01"
 
 output:
   dir: "docs"
