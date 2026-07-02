@@ -342,6 +342,7 @@ def update_markdown_files_by_date(papers_by_date, config):
 
                 for item in paper_items:
                     category, paper = unpack_paper_item(item)
+                    title = escape_html_in_md(paper.title)
                     title_link = f"[{title}](https://arxiv.org/abs/{paper.get_short_id()})"
                     category_name = CATEGORY_NAMES.get(category, category)
                     category_text = f"{category} - {category_name}"
