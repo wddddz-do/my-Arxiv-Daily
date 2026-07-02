@@ -287,6 +287,13 @@ def create_month_index(month_dir):
         f.write('\n'.join(lines))
     return True
 
+def unpack_paper_item(item):
+    """兼容两种格式：paper 或 (category, paper)"""
+    if isinstance(item, tuple) and len(item) == 2:
+        return item[0], item[1]
+
+    category = getattr(item, "primary_category", "Unknown")
+    return category, item
 
 def update_markdown_files_by_date(papers_by_date, config):
     """按日期生成多个 Markdown 文件到 docs 文件夹，并按自定义主题分组"""
@@ -333,8 +340,8 @@ def update_markdown_files_by_date(papers_by_date, config):
                 lines.append("| 标题 | arXiv分类 | 作者 | 发布日期 | PDF | 摘要 |")
                 lines.append("|------|-----------|------|----------|-----|------|")
 
-                for category, paper in paper_items:
-                    title = escape_html_in_md(paper.title)
+                for item in paper_items:
+                    category, paper = unpack_paper_item(item)
                     title_link = f"[{title}](https://arxiv.org/abs/{paper.get_short_id()})"
                     category_name = CATEGORY_NAMES.get(category, category)
                     category_text = f"{category} - {category_name}"
@@ -355,7 +362,8 @@ def update_markdown_files_by_date(papers_by_date, config):
                 lines.append("| 标题 | arXiv分类 | 作者 | 发布日期 | PDF |")
                 lines.append("|------|-----------|------|----------|-----|")
 
-                for category, paper in paper_items:
+                for item in paper_items:
+                    category, paper = unpack_paper_item(item)
                     title = escape_html_in_md(paper.title)
                     title_link = f"[{title}](https://arxiv.org/abs/{paper.get_short_id()})"
                     category_name = CATEGORY_NAMES.get(category, category)
