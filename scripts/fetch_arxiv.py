@@ -289,91 +289,99 @@ def create_month_index(month_dir):
 
 
 def update_markdown_files_by_date(papers_by_date, config):
-    """按日期生成多个 Markdown 文件到 docs 文件夹"""
+    """按日期生成多个 Markdown 文件到 docs 文件夹，并按自定义主题分组"""
     docs_dir = config['output']['dir']
     include_summary = config['output']['include_summary']
     summary_max_length = config['output']['summary_max_length']
     cat_heading = '#' * config['markdown']['category_heading_level']
-    
-    # 确保 docs 目录存在
+
     if not os.path.exists(docs_dir):
         os.makedirs(docs_dir)
-    
+
     total_files_created = 0
     total_papers = 0
     month_dirs = set()
-    
-    # 按日期生成文件
+
     for date in sorted(papers_by_date.keys(), reverse=True):
         date_str = date
-        papers_by_category = papers_by_date[date]
-        
-        # 格式化日期为文件名友好格式
+        papers_by_topic = papers_by_date[date]
+
         date_parts = date_str.split('-')
         year_month = f"{date_parts[0]}-{date_parts[1]}"
-        
-        # 创建年月目录
         year_month_dir = os.path.join(docs_dir, year_month)
         month_dirs.add(year_month_dir)
+
         if not os.path.exists(year_month_dir):
             os.makedirs(year_month_dir)
-        
-        # 生成文件内容
+
         lines = []
         lines.append(f"# {date_str}\n")
-        lines.append(f"\n")
-        
-        # 按分类添加论文
-        for category in sorted(papers_by_category.keys()):
-            papers = papers_by_category[category]
-            if not papers:
+        lines.append("")
+
+        for topic in sorted(papers_by_topic.keys()):
+            paper_items = papers_by_topic[topic]
+
+            if not paper_items:
                 continue
-            
-            total_papers += len(papers)
-            
-            # 分类标题
-            category_name = CATEGORY_NAMES.get(category, category)
-            lines.append(f"{cat_heading} {category} - {category_name}\n")
+
+            total_papers += len(paper_items)
+
+            lines.append(f"{cat_heading} {topic}\n")
             lines.append("")
-            
-            # 创建表格
+
             if include_summary:
-                lines.append("| 标题 | 作者 | 发布日期 | PDF | 摘要 |")
-                lines.append("|------|------|----------|-----|------|")
-                for paper in papers:
+                lines.append("| 标题 | arXiv分类 | 作者 | 发布日期 | PDF | 摘要 |")
+                lines.append("|------|-----------|------|----------|-----|------|")
+
+                for category, paper in paper_items:
                     title = escape_html_in_md(paper.title)
                     title_link = f"[{title}](https://arxiv.org/abs/{paper.get_short_id()})"
+                    category_name = CATEGORY_NAMES.get(category, category)
+                    category_text = f"{category} - {category_name}"
                     authors = ', '.join([str(author) for author in paper.authors])
                     published_date = paper.published.strftime('%Y-%m-%d')
                     pdf_link = f"[下载](https://arxiv.org/pdf/{paper.get_short_id()}.pdf)"
-                    summary = truncate_summary(escape_html_in_md(paper.summary.replace('\n', ' ').replace('|', '\\|').replace('\r', '')), summary_max_length)
-                    lines.append(f"| {title_link} | {authors} | {published_date} | {pdf_link} | {summary} |")
+                    summary = truncate_summary(
+                        escape_html_in_md(
+                            paper.summary.replace('\n', ' ').replace('|', '\\|').replace('\r', '')
+                        ),
+                        summary_max_length
+                    )
+
+                    lines.append(
+                        f"| {title_link} | {category_text} | {authors} | {published_date} | {pdf_link} | {summary} |"
+                    )
             else:
-                lines.append("| 标题 | 作者 | 发布日期 | PDF |")
-                lines.append("|------|------|----------|-----|")
-                for paper in papers:
+                lines.append("| 标题 | arXiv分类 | 作者 | 发布日期 | PDF |")
+                lines.append("|------|-----------|------|----------|-----|")
+
+                for category, paper in paper_items:
                     title = escape_html_in_md(paper.title)
                     title_link = f"[{title}](https://arxiv.org/abs/{paper.get_short_id()})"
+                    category_name = CATEGORY_NAMES.get(category, category)
+                    category_text = f"{category} - {category_name}"
                     authors = ', '.join([str(author) for author in paper.authors])
                     published_date = paper.published.strftime('%Y-%m-%d')
                     pdf_link = f"[下载](https://arxiv.org/pdf/{paper.get_short_id()}.pdf)"
-                    lines.append(f"| {title_link} | {authors} | {published_date} | {pdf_link} |")
-            
+
+                    lines.append(
+                        f"| {title_link} | {category_text} | {authors} | {published_date} | {pdf_link} |"
+                    )
+
             lines.append("")
-        
-        # 写入文件
+
         file_path = os.path.join(year_month_dir, f"{date_str}.md")
+
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write('\n'.join(lines))
-        
+
         total_files_created += 1
-        print(f"  创建文件: {file_path} ({len(papers_by_category)} 个分类)")
-    
-    # 为每个月创建索引文件
+        print(f" 创建文件: {file_path} ({len(papers_by_topic)} 个主题)")
+
     for month_dir in month_dirs:
         if create_month_index(month_dir):
-            print(f"  创建索引文件: {os.path.join(month_dir, 'index.md')}")
-    
+            print(f" 创建索引文件: {os.path.join(month_dir, 'index.md')}")
+
     return total_files_created, total_papers
 
 
