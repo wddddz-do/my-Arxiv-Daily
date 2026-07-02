@@ -96,11 +96,11 @@ topic_groups:
     - UAV vision-language navigation
     - aerial vision-language navigation
 
-start_date: "2025-01-01"
+start_date: "2025-07-01"
 
 output:
   dir: "docs"
-  max_papers_per_category: 15000
+  max_papers_per_category: 500
   include_summary: true
   summary_max_length: 250
 
